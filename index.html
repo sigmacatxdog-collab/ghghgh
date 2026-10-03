@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexora — Smart Tech Store</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f0effb;--card:#fff;--ink:#11111a;--muted:#66657a;
+  --purple:#7660ed;--purple2:#4f35c8;--lime:#c8ff27;--dark:#171722;
+  --line:#dedced;--shadow:0 18px 50px rgba(37,28,88,.12)
+}
+body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer;border:0}
+.container{width:min(1160px,92%);margin:auto}
+header{height:74px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:900;letter-spacing:2px;font-size:20px;display:flex;gap:10px;align-items:center}
+.logo-mark{width:25px;height:25px;position:relative}
+.logo-mark:before,.logo-mark:after{content:"";position:absolute;background:#111;width:25px;height:4px;top:10px;border-radius:5px}
+.logo-mark:before{transform:rotate(45deg)}.logo-mark:after{transform:rotate(-45deg)}
+nav{display:flex;gap:34px;font-size:13px}nav a{text-decoration:none;color:#222}
+.header-actions{display:flex;gap:10px;align-items:center}
+.cart-btn,.shop-btn{padding:12px 18px;border-radius:24px;background:#fff;border:1px solid #d8d5e8}
+.shop-btn{background:var(--lime);border:0;font-weight:800}
+.cart-count{background:#111;color:#fff;border-radius:50%;min-width:20px;height:20px;display:inline-grid;place-items:center;font-size:11px;margin-left:5px}
+
+.hero{min-height:510px;border-radius:28px;padding:58px 55px;position:relative;overflow:hidden;
+background:radial-gradient(circle at 65% 35%,#bdafff 0 13%,transparent 14%),linear-gradient(135deg,#f8f8ff,#ddd9f6)}
+.hero:after{content:"";position:absolute;width:430px;height:430px;border-radius:50%;background:#bcaeff;opacity:.5;right:90px;top:65px}
+.hero-content{position:relative;z-index:2;width:52%}
+.eyebrow{color:#5543c8;font-size:12px;font-weight:900;letter-spacing:1px;margin-bottom:12px}
+.hero h1{font-size:clamp(42px,6vw,72px);line-height:.96;letter-spacing:-3px;margin-bottom:22px}
+.hero h1 span{color:#725ce7}
+.hero p{max-width:370px;color:#333344;margin-bottom:28px}
+.cta{background:var(--lime);padding:14px 20px;border-radius:25px;font-weight:900;display:inline-flex;gap:16px;align-items:center}
+.cta b{background:#171722;color:#fff;width:27px;height:27px;border-radius:50%;display:grid;place-items:center}
+.hero-products{position:absolute;z-index:3;right:25px;bottom:30px;width:50%;height:75%}
+.device{position:absolute;filter:drop-shadow(0 22px 22px rgba(0,0,0,.2))}
+.laptop{width:340px;height:210px;background:linear-gradient(135deg,#ddd,#777);border:8px solid #222;border-radius:10px;right:120px;top:65px;transform:rotate(-14deg);padding:13px}
+.laptop-screen{height:100%;border-radius:4px;background:linear-gradient(135deg,#9d9bca,#59677c)}
+.phone{width:105px;height:190px;background:linear-gradient(145deg,#807a99,#27263b);border:6px solid #171722;border-radius:20px;right:45px;bottom:20px;transform:rotate(13deg)}
+.watch{width:92px;height:115px;background:#191923;border-radius:25px;right:255px;bottom:10px;transform:rotate(-8deg);border:7px solid #30303a}
+.headphone{width:150px;height:180px;border:24px solid #aaa;border-bottom-color:transparent;border-radius:80px 80px 0 0;right:20px;top:10px;transform:rotate(10deg)}
+.headphone:after,.headphone:before{content:"";position:absolute;width:38px;height:70px;background:#aaa;border-radius:20px;top:125px}.headphone:before{left:-40px}.headphone:after{right:-40px}
+
+.features{background:var(--dark);color:#fff;border-radius:22px;margin-top:-2px;padding:27px;display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.feature{padding:8px 20px;border-right:1px solid #3c3c4a}.feature:last-child{border:0}
+.feature .icon{color:var(--lime);font-size:25px}.feature h4{font-size:13px;margin:7px 0}.feature p{font-size:11px;color:#bbb;max-width:190px}
+
+.section{padding:42px 0}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:20px}
+.section h2{font-size:25px}.section-head small{color:#777}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.product{background:#e8e6f4;border-radius:16px;padding:14px;position:relative;transition:.2s}
+.product:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.product-img{height:185px;border-radius:12px;background:#f5f4fa;display:grid;place-items:center;position:relative;overflow:hidden}
+.product-img .shape{position:relative}
+.earbuds{width:105px;height:75px;background:#eee;border-radius:25px;box-shadow:0 8px 20px #bbb}.earbuds:after{content:"";position:absolute;width:17px;height:42px;background:#fff;left:18px;top:45px;border-radius:12px;box-shadow:53px 0 #fff}
+.product-img .phone-shape{width:82px;height:145px;background:linear-gradient(145deg,#6d6880,#252438);border:4px solid #181823;border-radius:15px}
+.product-img .watch-shape{width:85px;height:90px;background:#171722;border-radius:23px}
+.product-img .laptop-shape{width:160px;height:100px;background:linear-gradient(135deg,#bbb,#777);border:5px solid #222;border-radius:7px;transform:skew(-10deg)}
+.product h3{font-size:13px;margin:11px 0 3px}.price{font-weight:900;font-size:14px}.order-now{width:100%;margin-top:12px;padding:11px;border-radius:11px;background:var(--lime);font-weight:900;font-size:11px;letter-spacing:.3px;transition:.2s}.order-now:hover{transform:scale(1.02);background:#b7ef16}
+
+.stats{background:linear-gradient(90deg,#5138bb,#754fe1);color:#fff;border-radius:20px;padding:22px;display:grid;grid-template-columns:repeat(4,1fr);text-align:center;margin-bottom:40px}
+.stats strong{font-size:23px}.stats span{font-size:11px;display:block;color:#e5e1ff}
+
+.testimonial{background:linear-gradient(120deg,#1c1b35,#302474);border-radius:25px;color:#fff;display:grid;grid-template-columns:1fr 1fr;padding:42px;gap:30px;overflow:hidden}
+.quote{font-size:23px;max-width:440px}.quote-mark{color:var(--lime);font-size:50px}.join{border:1px solid #8d80ed;border-radius:18px;padding:25px;align-self:center}.join h3{font-size:24px;margin-bottom:10px}.join p{color:#ccc;font-size:13px;margin-bottom:18px}
+
+.modal{position:fixed;inset:0;background:rgba(10,8,25,.65);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal.show{display:flex}.checkout{background:#fff;width:min(720px,100%);max-height:92vh;overflow:auto;border-radius:24px;padding:26px}
+.modal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.close{width:35px;height:35px;border-radius:50%;background:#eee}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}
+.field label{font-size:12px;font-weight:800}.field input,.field textarea,.field select{border:1px solid #ddd9eb;border-radius:11px;padding:12px;outline:none}.field textarea{min-height:80px;resize:vertical}
+.payment{margin-top:18px}.payment-options{display:flex;gap:10px;margin:10px 0}.pay-option{flex:1;border:1px solid #ddd9eb;border-radius:12px;padding:13px;text-align:center}.pay-option.active{border:2px solid #6b54df;background:#f1efff}
+.upi-box{display:none;background:#f7f6ff;border-radius:15px;padding:15px;margin-top:10px}.upi-box.show{display:block}.upi-row{display:flex;gap:8px}.upi-row input{flex:1}.upi-btn{background:var(--lime);padding:12px;border-radius:10px;font-weight:900}
+.summary{margin-top:18px;padding:15px;background:#f5f4fa;border-radius:14px}.summary-line{display:flex;justify-content:space-between;margin:5px 0}.total{font-size:18px;font-weight:900;border-top:1px solid #ddd;padding-top:10px;margin-top:8px}
+.place{width:100%;margin-top:15px;padding:15px;border-radius:13px;background:#171722;color:#fff;font-weight:900}
+.notice{font-size:11px;color:#777;margin-top:9px}
+footer{padding:35px 0;color:#777;text-align:center;font-size:12px}
+
+@media(max-width:800px){
+ nav{display:none}.hero{padding:38px 25px;min-height:600px}.hero-content{width:100%}.hero-products{opacity:.65;right:-80px;bottom:0;width:100%}
+ .features,.stats{grid-template-columns:1fr 1fr}.products{grid-template-columns:1fr 1fr}.testimonial{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+ .products{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.features,.stats{grid-template-columns:1fr}.feature{border-right:0;border-bottom:1px solid #3c3c4a;padding-bottom:15px}.feature:last-child{border:0}.hero h1{font-size:48px}
+}
+</style>
+</head>
+<body>
+
+<header class="container">
+  <div class="logo"><span class="logo-mark"></span>NEXORA</div>
+  <nav><a href="#products">Products</a><a href="#features">Solutions</a><a href="#products">Innovation</a><a href="#footer">Support</a></nav>
+  <div class="header-actions"><button class="cart-btn" onclick="showOrders()">My Orders</button><button class="cart-btn" onclick="openCheckout()">Cart <span id="cartCount" class="cart-count">0</span></button><button class="shop-btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop Now ↗</button></div>
+</header>
+
+<main class="container">
+<section class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">⚡ NEXT-GEN GADGETS</div>
+    <h1>TECH THAT<br><span>EMPOWERS</span><br>EVERY DAY</h1>
+    <p>Smart. Sleek. Seamless. Explore technology designed to elevate the way you live.</p>
+    <button class="cta" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">EXPLORE DEVICES <b>→</b></button>
+  </div>
+  <div class="hero-products">
+    <div class="device laptop"><div class="laptop-screen"></div></div>
+    <div class="device headphone"></div><div class="device watch"></div><div class="device phone"></div>
+  </div>
+</section>
+
+<section id="features" class="features">
+ <div class="feature"><div class="icon">◇</div><h4>INNOVATIVE DESIGN</h4><p>Crafted with precision and a focus on the future.</p></div>
+ <div class="feature"><div class="icon">ϟ</div><h4>POWERFUL PERFORMANCE</h4><p>High-speed, high-efficiency technology you can trust.</p></div>
+ <div class="feature"><div class="icon">◉</div><h4>SEAMLESS CONNECTIVITY</h4><p>Stay connected anywhere, anytime with ease.</p></div>
+ <div class="feature"><div class="icon">♢</div><h4>SECURE BY DEFAULT</h4><p>Advanced protection for your data and devices.</p></div>
+</section>
+
+<section id="products" class="section">
+ <div class="section-head"><h2>EXPLORE OUR<br>TOP PICKS</h2><small>Premium gadgets • Fast delivery</small></div>
+ <div class="products">
+  <article class="product"><div class="product-img"><div class="shape earbuds"></div></div><h3>Nexora Buds Pro</h3><div class="price">₹10,499</div><button class="order-now" onclick="orderNow('Nexora Buds Pro',10499)">ORDER NOW</button></article>
+  <article class="product"><div class="product-img"><div class="shape watch-shape"></div></div><h3>Nexora Watch X</h3><div class="price">₹16,499</div><button class="order-now" onclick="orderNow('Nexora Watch X',16499)">ORDER NOW</button></article>
+  <article class="product"><div class="product-img"><div class="shape laptop-shape"></div></div><h3>Nexora Laptop Air</h3><div class="price">₹84,999</div><button class="order-now" onclick="orderNow('Nexora Laptop Air',84999)">ORDER NOW</button></article>
+  <article class="product"><div class="product-img"><div class="shape phone-shape"></div></div><h3>Nexora Phone 15</h3><div class="price">₹69,999</div><button class="order-now" onclick="orderNow('Nexora Phone 15',69999)">ORDER NOW</button></article>
+ </div>
+</section>
+
+<div class="stats">
+ <div><strong>120+</strong><span>Premium Products</span></div><div><strong>2.5M+</strong><span>Happy Customers</span></div><div><strong>98%</strong><span>Satisfaction Rate</span></div><div><strong>24/7</strong><span>Expert Support</span></div>
+</div>
+
+<section class="testimonial">
+ <div><div class="quote-mark">“</div><div class="quote">Nexora delivers more than just gadgets — it delivers experiences.</div><p style="margin-top:18px;color:#bbb">— Daniel K.<br><small>Tech Enthusiast</small></p></div>
+ <div class="join"><h3>READY TO UPGRADE YOUR TECH?</h3><p>Join millions who trust Nexora for quality, innovation, and style.</p><button class="cta">JOIN NEXORA FAMILY <b>→</b></button></div>
+</section>
+</main>
+
+<footer id="footer">© 2026 Nexora. Demo e-commerce website. Replace the UPI ID and product details with your real business information.</footer>
+
+
+<div class="modal" id="ordersModal">
+ <div class="checkout">
+  <div class="modal-top"><div><h2>My Orders</h2><small>Your recent orders are saved on this device.</small></div><button class="close" onclick="document.getElementById('ordersModal').classList.remove('show')">×</button></div>
+  <div id="ordersList" class="summary"></div>
+ </div>
+</div>
+
+<div class="modal" id="checkoutModal">
+ <div class="checkout">
+  <div class="modal-top"><div><h2>Checkout</h2><small>Enter delivery details & choose payment</small></div><button class="close" onclick="closeCheckout()">×</button></div>
+  <div id="cartItems" class="summary"></div>
+  <form id="orderForm" action="https://formspree.io/f/xwlpdyqe" method="POST" onsubmit="placeOrder(event)">
+<input type="hidden" name="_subject" value="New Nexora Product Order">
+<input type="hidden" name="order_number" id="formOrderNumber">
+<input type="hidden" name="products" id="formProducts">
+<input type="hidden" name="total_amount" id="formTotal">
+<input type="hidden" name="payment_method" id="formPayment">
+
+   <div class="form-grid" style="margin-top:15px">
+    <div class="field"><label>FULL NAME *</label><input id="name" required placeholder="Your name"></div>
+    <div class="field"><label>PHONE *</label><input id="phone" required pattern="[0-9]{10}" placeholder="10 digit mobile"></div>
+    <div class="field full"><label>DELIVERY ADDRESS *</label><textarea id="address" required placeholder="House no., street, area"></textarea></div>
+    <div class="field"><label>CITY *</label><input id="city" required placeholder="City"></div>
+    <div class="field"><label>PINCODE *</label><input id="pincode" required pattern="[0-9]{6}" placeholder="6 digit PIN"></div>
+   </div>
+   <div class="payment"><b>PAYMENT METHOD</b>
+    <div class="payment-options">
+      <button type="button" class="pay-option active" onclick="selectPay('upi',this)">UPI</button>
+      <button type="button" class="pay-option" onclick="selectPay('cod',this)">Cash on Delivery</button>
+    </div>
+    <div class="upi-box show" id="upiBox">
+      <div style="font-size:12px;margin-bottom:8px">Merchant UPI ID</div>
+      <div class="upi-row"><input id="upiId" value="yourbusiness@upi" placeholder="example@upi"><button type="button" class="upi-btn" onclick="payUPI()">PAY UPI</button></div>
+      <div class="notice">UPI button opens the customer's installed UPI app. Replace <b>yourbusiness@upi</b> with your real merchant UPI ID.</div>
+    </div>
+   </div>
+   <div id="orderTotal" class="summary"></div>
+   <button class="place" type="submit">PLACE ORDER</button>
+   <div class="notice">This is a front-end demo. For real orders/payments, connect this form to your backend/payment gateway (e.g. Razorpay) and your order database.</div>
+  </form>
+ </div>
+</div>
+
+<script>
+let cart=[];
+let payment='upi';
+function addToCart(name,price){
+ const found=cart.find(x=>x.name===name);
+ if(found) found.qty++; else cart.push({name,price,qty:1});
+ updateCart();
+ document.getElementById('cartCount').textContent=cart.reduce((s,x)=>s+x.qty,0);
+ openCheckout();
+}
+function orderNow(name,price){
+ cart=[{name:name,price:price,qty:1}];
+ document.getElementById('cartCount').textContent='1';
+ openCheckout();
+}
+function updateCart(){
+ const box=document.getElementById('cartItems');
+ if(!cart.length){box.innerHTML='<b>Your cart is empty.</b>';document.getElementById('orderTotal').innerHTML='';return}
+ box.innerHTML='<b>YOUR CART</b>'+cart.map((x,i)=>`
+ <div class="summary-line"><span>${x.name} × ${x.qty}</span><span>₹${(x.price*x.qty).toLocaleString('en-IN')}</span></div>`).join('');
+ const total=cart.reduce((s,x)=>s+x.price*x.qty,0);
+ document.getElementById('orderTotal').innerHTML=`<div class="summary-line"><span>Subtotal</span><b>₹${total.toLocaleString('en-IN')}</b></div><div class="summary-line"><span>Delivery</span><span>FREE</span></div><div class="summary-line total"><span>Total</span><span>₹${total.toLocaleString('en-IN')}</span></div>`;
+}
+function openCheckout(){document.getElementById('checkoutModal').classList.add('show');updateCart()}
+function closeCheckout(){document.getElementById('checkoutModal').classList.remove('show')}
+function selectPay(type,btn){
+ payment=type;document.querySelectorAll('.pay-option').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
+ document.getElementById('upiBox').classList.toggle('show',type==='upi');
+}
+function payUPI(){
+ const upi=document.getElementById('upiId').value.trim();
+ const total=cart.reduce((s,x)=>s+x.price*x.qty,0);
+ if(!upi || upi==='yourbusiness@upi'){alert('Please enter your real merchant UPI ID first.');return}
+ if(!cart.length){alert('Please add a product first.');return}
+ const url=`upi://pay?pa=${encodeURIComponent(upi)}&pn=Nexora&am=${total}&cu=INR&tn=Nexora%20Order`;
+ window.location.href=url;
+}
+
+function saveOrder(order){
+ let orders=JSON.parse(localStorage.getItem('nexoraOrders')||'[]');
+ orders.unshift(order);
+ localStorage.setItem('nexoraOrders',JSON.stringify(orders.slice(0,20)));
+}
+function showOrders(){
+ const orders=JSON.parse(localStorage.getItem('nexoraOrders')||'[]');
+ const box=document.getElementById('ordersList');
+ if(!orders.length){
+   box.innerHTML='<b>No orders yet.</b><p style="margin-top:8px;color:#777">Product select karke ORDER NOW dabayein.</p>';
+ }else{
+   box.innerHTML=orders.map(o=>`
+    <div style="padding:14px 0;border-bottom:1px solid #ddd">
+      <div style="display:flex;justify-content:space-between"><b>${o.order}</b><b>₹${Number(o.total).toLocaleString('en-IN')}</b></div>
+      <div style="font-size:12px;color:#666;margin-top:5px">${o.items}</div>
+      <div style="font-size:11px;color:#777;margin-top:4px">${o.payment} • ${o.date}</div>
+    </div>`).join('');
+ }
+ document.getElementById('ordersModal').classList.add('show');
+}
+
+function placeOrder(e){
+ e.preventDefault();
+ if(!cart.length){alert('Please add a product to the cart.');return}
+ const orderNo='NX'+Date.now().toString().slice(-8);
+ const total=cart.reduce((s,x)=>s+x.price*x.qty,0);
+ const customer={
+  order:orderNo,name:document.getElementById('name').value,phone:document.getElementById('phone').value,
+  address:document.getElementById('address').value,city:document.getElementById('city').value,
+  pincode:document.getElementById('pincode').value,payment,total
+ };
+ document.getElementById('formOrderNumber').value=orderNo;
+ document.getElementById('formProducts').value=cart.map(x=>`${x.name} × ${x.qty}`).join(', ');
+ document.getElementById('formTotal').value=`₹${total.toLocaleString('en-IN')}`;
+ document.getElementById('formPayment').value=payment==='upi'?'UPI':'Cash on Delivery';
+ customer.items=cart.map(x=>`${x.name} × ${x.qty}`).join(', '); customer.date=new Date().toLocaleString('en-IN'); saveOrder(customer); console.log('ORDER DATA:',customer);
+ alert(`Order ${orderNo} created!\\nTotal: ₹${total.toLocaleString('en-IN')}\\nPayment: ${payment==='upi'?'UPI':'Cash on Delivery'}\\n\\nConnect this form to your backend/Formspree/payment gateway for real order processing.`);
+}
+document.getElementById('checkoutModal').addEventListener('click',e=>{if(e.target.id==='checkoutModal')closeCheckout()}); document.getElementById('ordersModal').addEventListener('click',e=>{if(e.target.id==='ordersModal')document.getElementById('ordersModal').classList.remove('show')});
+</script>
+</body>
+</html>
